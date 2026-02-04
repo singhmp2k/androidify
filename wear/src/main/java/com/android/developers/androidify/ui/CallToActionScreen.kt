@@ -32,8 +32,6 @@ import androidx.wear.compose.material3.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.android.developers.androidify.R
 import com.android.developers.androidify.ui.theme.AndroidifyWearTheme
-import com.google.android.horologist.compose.layout.ColumnItemType
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 @Composable
 fun CallToActionScreen(
@@ -44,11 +42,6 @@ fun CallToActionScreen(
     val listState = rememberTransformingLazyColumnState()
     ScreenScaffold(
         scrollState = listState,
-        // Use Horologist for now to get correct top and bottom padding in list.
-        contentPadding = rememberResponsiveColumnPadding(
-            first = ColumnItemType.IconButton,
-            last = ColumnItemType.Button,
-        ),
     ) { contentPadding ->
         TransformingLazyColumn(
             state = listState,

@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.androidx.wear.compose.material)
     implementation(libs.androidx.wear.compose.ui.tooling)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.play.services.wearable)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.watchface.push)
@@ -76,9 +78,12 @@ dependencies {
     implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.androidx.wear)
     implementation(libs.androidx.wear.remote.interactions)
-    implementation(libs.horologist.compose.layout)
     implementation(libs.accompanist.permissions)
     implementation(libs.androidx.work.runtime.ktx)
+
+    // Added for Compose Preview support
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
 
     "cliToolConfiguration"(libs.validator.push.cli)
 }

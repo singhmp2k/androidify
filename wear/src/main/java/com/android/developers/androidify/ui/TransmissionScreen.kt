@@ -37,12 +37,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
-import androidx.wear.compose.material.CircularProgressIndicator
+import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.ProgressIndicatorDefaults
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.ResponsiveItemType
+import androidx.wear.compose.material3.lazy.ResponsiveTransformingLazyColumn
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.android.developers.androidify.R
 import com.android.developers.androidify.ui.theme.AndroidifyWearTheme
@@ -50,8 +52,6 @@ import com.android.developers.androidify.ui.theme.Blue
 import com.android.developers.androidify.ui.theme.LimeGreen
 import com.android.developers.androidify.ui.theme.Primary80
 import com.android.developers.androidify.ui.theme.Primary90
-import com.google.android.horologist.compose.layout.ColumnItemType
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 import kotlin.math.floor
 
 @Composable
@@ -60,33 +60,28 @@ fun TransmissionScreen(modifier: Modifier = Modifier) {
     ScreenScaffold(
         modifier = modifier.keepScreenOn(),
         scrollState = listState,
-        // Use Horologist for now to get correct top and bottom padding in list.
-        contentPadding = rememberResponsiveColumnPadding(
-            first = ColumnItemType.IconButton,
-            last = ColumnItemType.Button,
-        ),
     ) { contentPadding ->
-        TransformingLazyColumn(
+        ResponsiveTransformingLazyColumn(
             state = listState,
             contentPadding = contentPadding,
         ) {
-            item {
+            item(itemType = ResponsiveItemType.IconButton) {
                 Image(
                     modifier = Modifier.fillMaxWidth(0.3f),
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = stringResource(R.string.logo_description),
                 )
             }
-            item {
+            item(itemType = ResponsiveItemType.Default) {
                 Spacer(modifier = Modifier.height(4.dp))
             }
-            item {
+            item(itemType = ResponsiveItemType.IconButton) {
                 FourColorProgressIndicator()
             }
-            item {
+            item(itemType = ResponsiveItemType.Default) {
                 Spacer(modifier = Modifier.height(4.dp))
             }
-            item {
+            item(itemType = ResponsiveItemType.Text) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
@@ -130,7 +125,9 @@ fun FourColorProgressIndicator() {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize(),
     ) {
-        CircularProgressIndicator(indicatorColor = animatedColor)
+        CircularProgressIndicator(
+            colors = ProgressIndicatorDefaults.colors().copy(indicatorColor = animatedColor),
+        )
     }
 }
 
